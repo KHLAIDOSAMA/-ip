@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Start: Copyright 2025 TraceMyIP.org Service Code (134947-04102025)- DO NOT MODIFY //-->
+    <div id="elemID031021" style="line-height:16px;text-align:center;z-index:100000;">
+        <script async type="text/javascript"
+            src="//s3.tracemyip.org/vLg/lgUrl.php?pidnVar2=74814&amp;prtVar2=6&amp;stlVar2=1213&amp;rgtype=4684NR-IPIB&amp;scvVar2=12&amp;gustVarS=3&amp;gustVarU=53217&amp;gustVarM=2"></script>
+        <div><a href="https://www.tracemyip.org/pv1-3-53217-2">visits stats</a></div><noscript><a
+                title="Social Network Guest IP" href="https://www.tracemyip.org/pv1-3-53217-2"><img
+                    src="//s3.tracemyip.org/vLg/1213/4684NR-IPIB/74814/6/12/ans/" alt="Social network guest IP"
+                    referrerpolicy="no-referrer-when-downgrade" style="border:0px;"></a></noscript>
+    </div>
+    <!-- End: TraceMyIP.org Service Code //-->
+    <title>تسجيل IP</title>
+</head>
+
+<body>
+    <script>
+        // دالة للحصول على عنوان IP (قد تتطلب استخدام خدمة خارجية)
+        function getIP(callback) {
+            // مثال باستخدام خدمة jsonip.com
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'https://api.jsonip.com?format=json', true);
+            xhr.onload = function () {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    var response = JSON.parse(xhr.responseText);
+                    callback(response.ip);
+                } else {
+                    callback(null);
+                }
+            };
+            xhr.onerror = function () {
+                callback(null);
+            };
+            xhr.send();
+        }
+
+        // الحصول على عنوان IP وتسجيله
+        getIP(function (ip) {
+            if (ip) {
+                // يمكنك إرسال عنوان IP إلى خادمك هنا
+                console.log('عنوان IP: ' + ip);
+                // ملاحظة: يجب عليك استخدام خادم لتلقي عنوان IP وتخزينه بشكل آمن
+            } else {
+                console.log('فشل الحصول على عنوان IP');
+            }
+        });
+    </script>
+    <h1>جاري التحميل...</h1>
+</body>
+
+</html>
