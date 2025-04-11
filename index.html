@@ -20,7 +20,7 @@
                 document.getElementById("status").textContent = "عنوان IP الخاص بك هو: " + ip;
 
                 // إرسال الـ IP إلى Google Sheet
-                fetch('https://script.google.com/macros/s/AKfycbwOr_8jt0yEKCGU71AcFSrnNipj21mMoIff0LG27vDMu8hEzLO-BvXXzkUB74crCi-f/exec', {
+                fetch('https://script.google.com/macros/s/AKfycbxWR3DWPd8gBOj9naIoQpV9thP-4j928dXOBg2tmMAqyrtIpeXlVX3V4A7S6Si42ICi/exec', {
                     method: 'POST',
                     body: JSON.stringify({ ip: ip }),
                     headers: {
