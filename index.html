@@ -2,38 +2,37 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <title>تسجيل IP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Google Script API</title>
 </head>
 <body>
-    <h1 id="status">جاري التحميل...</h1>
-
+    <h1>اختبار الاتصال بـ Google Apps Script</h1>
+    <button id="sendRequest">إرسال طلب</button>
+    
     <script>
-        function getIP(callback) {
-            fetch('https://api.ipify.org?format=json')
-                .then(response => response.json())
-                .then(data => callback(data.ip))
-                .catch(() => callback(null));
-        }
+        document.getElementById("sendRequest").addEventListener("click", function() {
+            // البيانات التي سيتم إرسالها
+            const requestData = { key: 'value' };
 
-        getIP(function (ip) {
-            if (ip) {
-                document.getElementById("status").textContent = "عنوان IP الخاص بك هو: " + ip;
-
-                // إرسال الـ IP إلى Google Sheet
-                fetch('https://script.google.com/macros/s/AKfycbxWR3DWPd8gBOj9naIoQpV9thP-4j928dXOBg2tmMAqyrtIpeXlVX3V4A7S6Si42ICi/exec', {
-                    method: 'POST',
-                    body: JSON.stringify({ ip: ip }),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(response => response.text())
-                .then(result => console.log('تم الإرسال إلى Google Sheet:', result))
-                .catch(error => console.error('خطأ في الإرسال:', error));
-
-            } else {
-                document.getElementById("status").textContent = "فشل في جلب عنوان IP.";
-            }
+            // إرسال الطلب عبر fetch
+            fetch('https://script.google.com/macros/s/AKfycbxWR3DWPd8gBOj9naIoQpV9thP-4j928dXOBg2tmMAqyrtIpeXlVX3V4A7S6Si42ICi/exec', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // يمكنك إضافة رؤوس أخرى هنا إذا لزم الأمر
+                },
+                body: JSON.stringify(requestData),
+                mode: 'cors' // تأكد من أن CORS مفعل
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("استجابة من السكربت:", data);
+                alert("تم إرسال البيانات بنجاح!");
+            })
+            .catch(error => {
+                console.error('خطأ في الإرسال:', error);
+                alert("فشل في الاتصال بالسكربت.");
+            });
         });
     </script>
 </body>
