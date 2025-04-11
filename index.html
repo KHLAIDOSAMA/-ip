@@ -1,35 +1,25 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="ar">
 <head>
-
+    <meta charset="UTF-8">
     <title>تسجيل IP</title>
 </head>
-
 <body>
+    <h1 id="status">جاري التحميل...</h1>
+
     <script>
         function getIP(callback) {
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'https://api.jsonip.com?format=json', true);
-            xhr.onload = function () {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    var response = JSON.parse(xhr.responseText);
-                    callback(response.ip);
-                } else {
-                    callback(null);
-                }
-            };
-            xhr.onerror = function () {
-                callback(null);
-            };
-            xhr.send();
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => callback(data.ip))
+                .catch(() => callback(null));
         }
-    
+
         getIP(function (ip) {
             if (ip) {
-                console.log('عنوان IP: ' + ip);
-    
-                // إرسال البيانات إلى Google Sheet
+                document.getElementById("status").textContent = "عنوان IP الخاص بك هو: " + ip;
+
+                // إرسال الـ IP إلى Google Sheet
                 fetch('https://script.google.com/macros/s/AKfycbwOr_8jt0yEKCGU71AcFSrnNipj21mMoIff0LG27vDMu8hEzLO-BvXXzkUB74crCi-f/exec', {
                     method: 'POST',
                     body: JSON.stringify({ ip: ip }),
@@ -40,13 +30,11 @@
                 .then(response => response.text())
                 .then(result => console.log('تم الإرسال إلى Google Sheet:', result))
                 .catch(error => console.error('خطأ في الإرسال:', error));
+
             } else {
-                console.log('فشل الحصول على عنوان IP');
+                document.getElementById("status").textContent = "فشل في جلب عنوان IP.";
             }
         });
     </script>
-    
-    <h1>جاري التحميل...</h1>
 </body>
-
 </html>
